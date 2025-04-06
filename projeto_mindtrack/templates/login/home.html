@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="login-container">
-    <h2>Login</h2>
-
+  <div class="login-box">
+    <h2 class = "titulo">LOGIN</h2>
+    <p class="subtitulo">Digite seus dados para acesso nos campos abaixos</p>
     {% if error %}
       <div class="erro">
         {{ error }}
@@ -12,10 +12,13 @@
 
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
-      <input type="email" name="email" placeholder="Digite seu email aqui" required>
-      <input type="password" name="senha" placeholder="Digite sua senha aqui" required>
-      <button type="submit">Acessar</button>
-      <p>Não possui conta? <a href="/cadastro">Cadastre-se.</a></p>
+      <p>Email</p>
+        <input type="email" name="email" placeholder="Digite seu email aqui..." required>
+      <p>Senha</p>
+        <input type="password" name="senha" placeholder="Digite sua senha aqui..." required>
+        <p class="link-home">Não possui conta? <a href="/cadastro">Cadastre-se.</a></p>
+        <button type="submit">Acessar</button>
+       
     </form>
   </div>
 {% endblock %}

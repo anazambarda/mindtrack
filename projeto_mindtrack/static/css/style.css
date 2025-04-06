@@ -1,5 +1,11 @@
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url('../css/img/backgroud.png');
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .erro{
@@ -7,3 +13,163 @@ body {
     font-size: 1.2em;
     font-weight: bold;
 }
+
+.login-box {
+    background-color: white;
+    border: 10px solid #f9b164; 
+    padding: 0px 40px 40px 40px;
+    width: 400px;
+    margin: 50px auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-box h2 {
+    text-align: left;
+    margin-bottom: 10px;
+    color: #f7a237;  
+    font-size: 40px;}
+  
+  .login-box form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-box input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-box button {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f7a237;
+    color: white;
+    border: 1px solid #f7a237;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .login-box button:hover {
+    background-color: white;
+    color: #f7a237;
+    font-style: bold;
+    border: 1px solid #f7a237;
+  }
+
+  .login-box p {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .cadastro-box {
+    background-color: white;
+    border: 10px solid #f9b164;
+    padding: 0 40px 40px 40px;
+    width: 450px;
+    margin: 50px auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .cadastro-titulo {
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 25px;
+    color: #f7a237;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .subtitulo {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: gray;
+  }
+  
+  .cadastro-box form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cadastro-box label {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  
+  .cadastro-box input[type="text"],
+  .cadastro-box input[type="email"],
+  .cadastro-box input[type="password"],
+  .cadastro-box input[type="number"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .grupo-horizontal {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .grupo-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+  }
+  
+  .radio-group label {
+    font-weight: normal;
+  }
+  
+  .cadastro-box button {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f7a237;
+    color: white;
+    border: 1px solid #f7a237;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .cadastro-box button:hover {
+    background-color: white;
+    color: #f7a237;
+    border: 1px solid #f7a237;
+  }
+  
+  .link-login {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .link-login a {
+    text-decoration: underline;
+  }
+  
+  .info-campos {
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+    margin-top: 10px;
+  }
+  

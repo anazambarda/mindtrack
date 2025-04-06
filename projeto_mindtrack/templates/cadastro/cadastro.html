@@ -3,11 +3,47 @@
 {% block title %}Cadastro{% endblock %}
 
 {% block content %}
-    <h1>Cadastrar Pessoa</h1>
+  <div class="cadastro-box">
+    <h2 class="cadastro-titulo">CADASTRO</h2>
+    <p class="subtitulo">Digite seus dados para se cadastrar</p>
+
+    {% if error %}
+      <div class="erro">{{ error }}</div>
+    {% endif %}
+
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Salvar</button>
-      <p>Já Possui Conta? Entre</p>
+      <label for="nome">Nome Completo</label>
+      <input type="text" name="nome" placeholder="Digite seu nome aqui..." required>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" placeholder="Digite seu email aqui... (fulana@gmail.com)" required>
+
+      <label for="senha">Senha</label>
+      <input type="password" name="senha" placeholder="Digite sua senha aqui..." required>
+
+      <div class="grupo-horizontal">
+        <div class="grupo-input">
+          <label for="idade">Idade</label>
+          <input type="number" name="idade" placeholder="Sua idade aqui..." required>
+        </div>
+
+        <div class="grupo-input">
+          <label>Gênero</label>
+          <div class="radio-group">
+            <label><input type="radio" name="genero" value="feminino"> Feminino</label>
+            <label><input type="radio" name="genero" value="masculino"> Masculino</label>
+            <label><input type="radio" name="genero" value="outro"> Outro</label>
+          </div>
+        </div>
+      </div>
+
+      <p class="info-campos">*Todos os campos são obrigatórios</p>
+
+      <p class="link-login">Já possui conta? <a href="{% url 'login' %}">Entre</a></p>
+
+      <button type="submit">Cadastrar</button>
     </form>
+  </div>
 {% endblock %}
+
