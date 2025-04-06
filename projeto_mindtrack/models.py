@@ -1,9 +1,14 @@
 from django.db import models
 
-class usuario(models.Model):
+class Usuario(models.Model):
+    SEXO_CHOICES = [
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outro'),
+    ]
     usuarioID = models.AutoField(primary_key = True)
-    nome = models.TextField(max_length = 255)
-    email = models.TextField(max_length = 255)
-    senha = models.TextField(max_length = 255)
+    nome = models.CharField(max_length = 255)
+    email = models.CharField(max_length = 255)
+    senha = models.CharField(max_length = 255)
     idade = models.IntegerField()
-    sexo = models.TextField(max_length = 20)
+    sexo = models.CharField(max_length = 1, choices=SEXO_CHOICES)

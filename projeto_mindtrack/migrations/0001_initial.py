@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
             name='usuario',
             fields=[
                 ('usuarioID', models.AutoField(primary_key=True, serialize=False)),
-                ('nome', models.TextField(max_length=255)),
-                ('email', models.TextField(max_length=255)),
-                ('senha', models.TextField(max_length=255)),
+                ('nome', models.CharField(max_length=255)),
+                ('email', models.CharField(max_length=255)),
+                ('senha', models.CharField(max_length=255)),
                 ('idade', models.IntegerField()),
-                ('sexo', models.TextField(max_length=20)),
+                ('sexo', models.CharField(max_length=20)),
             ],
         ),
     ]
