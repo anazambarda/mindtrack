@@ -7,12 +7,24 @@
     <h2 class="cadastro-titulo">CADASTRO</h2>
     <p class="subtitulo">Digite seus dados para se cadastrar</p>
 
-    {% if error %}
-      <div class="erro">{{ error }}</div>
-    {% endif %}
+   {% if messages %}
+  {% for message in messages %}
+    <div style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
 
     <form method="post">
       {% csrf_token %}
+
+
+      {% for field in form %}
+          {% for error in field.errors %}
+              <div style="color: red;">{{ error }}</div>
+          {% endfor %}
+      {% endfor %}
       <label for="nome">Nome Completo</label>
       <input type="text" name="nome" placeholder="Digite seu nome" required>
 

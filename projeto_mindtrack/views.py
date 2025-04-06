@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
+from django.contrib import messages
 from .forms import CadastroForm
+
 
 def home(request):
     return render(request, 'login/home.html')
@@ -9,12 +11,27 @@ def cadastro(request):
     if request.method == 'POST':
         form = CadastroForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('home')  # redireciona para uma página de sucesso
+            email = form.cleaned_data.get('email')
+            if Usuario.objects.filter(email=email).exists():
+                messages.error(request, 'Este email já está em uso.')
+                # Armazena os dados do form pra repopular depois
+                request.session['form_data'] = request.POST
+                return redirect('cadastro')  # redireciona mesmo com erro
+            else:
+                form.save()
+                messages.success(request, 'Cadastro realizado com sucesso!')
+                return redirect('home')  # redireciona para página de sucesso
     else:
-        form = CadastroForm()
-    
+        if 'form_data' in request.session:
+            form = CadastroForm(initial=request.session.pop('form_data'))
+        else:
+            form = CadastroForm()
+
     return render(request, 'cadastro/cadastro.html', {'form': form})
+
+def perguntas(request):
+    return render(request, 'perguntas/perguntas.html')  # Ou o caminho que você estiver usando
+
 
 def login(request):
     if request.method == 'POST':
@@ -23,7 +40,7 @@ def login(request):
         
         try:
             usuario = Usuario.objects.get(email=email, senha=senha)
-            return redirect('home')  # redireciona para uma página de sucesso
+            return redirect('perguntas')  # redireciona para uma página de sucesso
         except Usuario.DoesNotExist:
             return render(request, 'login/home.html', {'error': 'Email ou senha inválidos.'})
     
