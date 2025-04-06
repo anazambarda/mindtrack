@@ -10,8 +10,7 @@ body {
 
 .erro{
     color: red;
-    font-size: 1.2em;
-    font-weight: bold;
+    font: size 20px;;
 }
 
 .login-box {
