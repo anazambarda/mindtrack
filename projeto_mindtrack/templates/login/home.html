@@ -13,10 +13,10 @@
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <p>Email</p>
-        <input type="email" name="email" placeholder="Digite seu email aqui..." required>
+        <input type="email" name="email" placeholder="Digite seu email" required>
       <p>Senha</p>
-        <input type="password" name="senha" placeholder="Digite sua senha aqui..." required>
-        <p class="link-home">Não possui conta? <a href="/cadastro">Cadastre-se.</a></p>
+        <input type="password" name="senha" placeholder="Digite sua senha" required>
+        <p class="link-login">Não possui conta? <a href="/cadastro">Cadastre-se.</a></p>
         <button type="submit">Acessar</button>
        
     </form>
