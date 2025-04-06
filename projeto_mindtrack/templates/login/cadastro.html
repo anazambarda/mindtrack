@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+</head>
+<body>
+
+  <h2>Cadastro</h2>
+
+  <form action="/cadastrar" method="post">
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="senha">Senha:</label><br>
+    <input type="password" id="senha" name="senha" required><br><br>
+
+    <label for="idade">Idade:</label><br>
+    <input type="number" id="idade" name="idade" required><br><br>
+
+    <label for="genero">Gênero:</label><br>
+    <select id="genero" name="genero" required>
+      <option value="">--Selecione--</option>
+      <option value="feminino">Feminino</option>
+      <option value="masculino">Masculino</option>
+      <option value="outro">Outro</option>
+    </select><br><br>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+</body>
+</html>
