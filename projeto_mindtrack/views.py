@@ -17,7 +17,7 @@ def cadastro(request):
         form = CadastroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('pessoa_sucesso')  # redireciona para uma página de sucesso
+            return redirect('home')  # redireciona para uma página de sucesso
     else:
         form = CadastroForm()
     
