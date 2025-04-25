@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
+from .models import Pergunta, Formulario, Resposta, Resultado
 from django.contrib import messages
 from .forms import CadastroForm
+from .models import Usuario
+from datetime import date
 
 
 def home(request):
@@ -38,7 +41,8 @@ def login(request):
 
         try:
             usuario = Usuario.objects.get(email=email, senha=senha)
-            return redirect('perguntas')
+            request.session['usuario_id'] = usuario.usuarioID  # <-- adiciona isso aqui!
+            return redirect('perguntas')  # redireciona pro questionário
         except Usuario.DoesNotExist:
             request.session['login_erro'] = 'Email ou senha inválidos.'
             request.session['login_email'] = email
@@ -49,6 +53,56 @@ def login(request):
 
     return render(request, 'login/home.html', {'error': error, 'email': email})
 
+
+def questoes(request):
+    perguntas = Pergunta.objects.all()
+    
+    if request.method == 'POST':
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            return redirect('login') 
+        usuario = Usuario.objects.get(usuarioID=usuario_id)
+        formulario = Formulario.objects.create(usuario=usuario, data_resposta=date.today())
+        pontuacao = 0
+
+        for pergunta in perguntas:
+            resposta_str = request.POST.get(f'pergunta_{pergunta.perguntaID}')
+            if resposta_str is not None:
+                resposta_bool = resposta_str == 'sim'
+                if resposta_bool:
+                    pontuacao += 1
+                Resposta.objects.create(formulario=formulario, pergunta=pergunta, resposta=resposta_bool)
+
+        if pontuacao <= 7:
+            estratificacao = 'Transtorno leve'
+        elif pontuacao <= 14:
+            estratificacao = 'Transtorno moderado'
+        else:
+            estratificacao = 'Transtorno grave'
+
+        Resultado.objects.create(
+            formulario=formulario,
+            usuario=usuario,
+            pontuacao=pontuacao,
+            estratificacao=estratificacao
+        )
+
+        return redirect('dashboard/dashboard.html')  # redireciona para a página de resultado
+
+    return render(request, 'questoes/questoes.html', {'perguntas': perguntas})
+
+
+
+
+
+
+
+
+
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 
 

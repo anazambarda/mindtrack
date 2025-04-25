@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Questionário</title>
+  <link rel="stylesheet" href="{% static 'css/questoes.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Mind<span>Track</span></div>
+    <div class="icon">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </header>
+
+  <section class="main">
+    <div class="form-container">
+      <h2>VOCÊ PRECISA CUIDAR DA SAÚDE MENTAL!</h2>
+      <p>A saúde mental é essencial... (seu texto aqui)</p>
+
+      <form method="POST">
+        {% csrf_token %}
+        {% for pergunta in perguntas %}
+          <div class="question-block">
+            <p><strong>{{ forloop.counter }} - {{ pergunta.pergunta }}</strong></p>
+            <label>
+              <input type="radio" name="pergunta_{{ pergunta.perguntaID }}" value="sim" required> Sim
+            </label>
+            <label>
+              <input type="radio" name="pergunta_{{ pergunta.perguntaID }}" value="nao"> Não
+            </label>
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+</body>
+</html>
