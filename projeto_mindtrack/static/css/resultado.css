@@ -1,0 +1,131 @@
+/* reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* corpo laranja e fonte */
+  body {
+    background-color: #fda916;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* header branco com logo e nav */
+  header {
+    background-color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fda8169c;
+  }
+  .logo span {
+    color: #fda816;
+  }
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: #fda916;
+    font-weight: 500;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon i {
+    font-size: 40px;
+    color: #fda916;
+  }
+  
+  /* centraliza o card */
+  .resultado-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  /* o card branco */
+  .resultado-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .resultado-card h1 {
+    font-size: 2.5rem;
+    color: #fda916;
+    margin-bottom: 1.5rem;
+  }
+  .resultado-card img {
+    width: 120px;
+    margin-bottom: 1.5rem;
+  }
+  .resultado-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* cores por classificação */
+  .sem {
+    color: #4CAF50;
+  }
+  .leve {
+    color: #2196F3;   /* azul */
+  }
+  .moderado {
+    color: #fda916;   /* laranja */
+  }
+  .grave {
+    color: #f44336;   /* vermelho */
+  }
+  
+  .resultado-card p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+  
+  /* botão no canto inferior direito do card */
+  .btn-dash {
+    display: inline-block;
+    background-color: #fda916;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  .btn-dash:hover {
+    background-color: #e68900;
+  }
+  
+  /* responsivo */
+  @media (max-width: 600px) {
+    .resultado-card {
+      padding: 2rem;
+    }
+  }
+  

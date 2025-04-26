@@ -7,26 +7,40 @@ body {
   
   header {
     background-color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-  
   .logo {
-    font-size: 24px;
+    font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #fda816;
   }
-  
   .logo span {
-    color: #f89f1f;
+    color: #fda8169c;
+  }
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: #fda916;
+    font-weight: 500;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  .icon {
-    font-size: 28px;
-    color: #f89f1f;
+  .icon i {
+    font-size: 40px;
+    color: #fda916;
   }
   
   .main {

@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado – MindTrack</title>
+  <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..."
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <header>
+    <div class="logo"><span>Mind</span>Track</div>
+    <nav>
+      <a href="{% url 'perguntas' %}">Página inicial</a>
+      <a href="{% url 'questoes' %}">Questionário</a>
+      <a href="{% url 'dashboard' %}">Dashboard</a>
+    </nav>
+    <div class="icon">
+      <i class="fas fa-user-circle"></i>
+    </div>
+  </header>
+
+  <main class="resultado-main">
+    <div class="resultado-card">
+      <h1>RESULTADO</h1>
+
+      <img src="{% static 'img/cerebro_fofo.png' %}" alt="Cérebro fofo">
+
+      <h2 class="
+          {% if estratificacao == 'Sem transtorno Mental' %}sem
+          {% elif estratificacao == 'Transtorno leve' %}leve
+          {% elif estratificacao == 'Transtorno moderado' %}moderado
+          {% else %}grave{% endif %}
+        ">
+        {% if estratificacao == 'Sem transtorno Mental' %}
+          Sem transtorno Mental
+        {% elif estratificacao == 'Transtorno leve' %}
+          Sofrimento mental leve
+        {% elif estratificacao == 'Transtorno moderado' %}
+          Sofrimento mental moderado
+        {% else %}
+          Sofrimento mental grave
+        {% endif %}
+      </h2>
+
+      <p>
+        {% if estratificacao == 'Sem transtorno Mental' %}
+          Seu resultado indica que, no momento, você não apresenta sinais de sofrimento mental significativos.
+          Isso é um ótimo sinal! Continue se cuidando, prestando atenção ao seu bem-estar físico e emocional.
+          Manter bons hábitos e buscar equilíbrio na rotina são atitudes importantes para preservar a saúde mental.
+        {% elif estratificacao == 'Transtorno leve' %}
+          Você apresentou alguns sinais leves de sofrimento mental. 
+          Isso pode estar ligado a fatores como estresse, cansaço ou mudanças na rotina. Fique atento(a) aos seus 
+          sentimentos e tente reservar momentos para relaxar, dormir bem e praticar atividades que você gosta. 
+          Cuidar de você é essencial!
+        {% elif estratificacao == 'Transtorno moderado' %}
+          Seu resultado mostra indícios moderados de sofrimento mental. Pode ser que você esteja enfrentando 
+          dificuldades para dormir, se concentrar ou lidar com suas emoções. Isso merece atenção. 
+          Tente conversar com alguém de confiança, buscar apoio psicológico ou adotar pequenas mudanças na 
+          rotina para aliviar esse peso. Você não está sozinho(a).
+        {% else %}
+          Seu resultado aponta sinais mais intensos de sofrimento mental, como tristeza frequente, cansaço constante  
+          ou pensamentos negativos. É muito importante buscar apoio profissional nesse momento.  
+          Falar com um psicólogo, médico ou outro profissional pode fazer toda a diferença.  
+          Você é importante, e cuidar da sua saúde mental é uma prioridade.
+        {% endif %}
+      </p>
+
+      <a href="{% url 'dashboard' %}" class="btn-dash">Visualizar Dash</a>
+    </div>
+  </main>
+
+</body>
+</html>

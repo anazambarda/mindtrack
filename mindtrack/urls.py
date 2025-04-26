@@ -7,5 +7,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('perguntas/', views.perguntas, name='perguntas'),
     path('questoes/', views.questoes, name='questoes'),       # ← novo
-    path('dashboard/', views.dashboard, name='dashboard'),    # ← novo
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('resultado/', views.resultado, name='resultado')  # ← novo
 ]

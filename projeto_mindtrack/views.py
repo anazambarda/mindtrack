@@ -72,8 +72,9 @@ def questoes(request):
                 if resposta_bool:
                     pontuacao += 1
                 Resposta.objects.create(formulario=formulario, pergunta=pergunta, resposta=resposta_bool)
-
-        if pontuacao <= 7:
+        if pontuacao == 0:
+            estratificacao = 'Sem transtorno Mental'
+        elif pontuacao <= 7:
             estratificacao = 'Transtorno leve'
         elif pontuacao <= 14:
             estratificacao = 'Transtorno moderado'
@@ -86,12 +87,18 @@ def questoes(request):
             pontuacao=pontuacao,
             estratificacao=estratificacao
         )
-
-        return redirect('dashboard/dashboard.html')  # redireciona para a página de resultado
+        request.session['estratificacao'] = estratificacao
+        return redirect('resultado')  # redireciona para a página de resultado
 
     return render(request, 'questoes/questoes.html', {'perguntas': perguntas})
 
 
+def resultado(request):
+    estratificacao = request.session.get('estratificacao')
+    if not estratificacao:
+        return redirect('home')  # caso alguém tente entrar sem passar pelo fluxo certo
+
+    return render(request, 'resultado/resultado.html', {'estratificacao': estratificacao})
 
 
 
