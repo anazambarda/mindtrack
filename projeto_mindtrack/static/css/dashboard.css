@@ -1,0 +1,197 @@
+/* dashboard.css */
+
+/* Estilos do Header */
+header {
+    background-color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fda816;
+}
+
+.logo span {
+    color: #fda8169c;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fda916;
+    font-weight: 500;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon i {
+    font-size: 40px;
+    color: #fda916;
+}
+
+/* Restante do CSS do Dashboard */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #ffb733;
+    color: #333;
+}
+
+.dashboard-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #ffb733; /* Laranja forte */
+    text-align: center;
+}
+
+/* Seções de métricas */
+.metrics-section {
+    margin-bottom: 40px;
+}
+
+.metrics-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.metrics-section ul li {
+    margin: 10px 0;
+    font-size: 1.05rem;
+}
+
+.metrics-section ul li strong {
+    color: #ffb733; /* Laranja mais claro */
+}
+
+/* Tabela de histórico */
+.historico-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.historico-table th,
+.historico-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.historico-table th {
+    background-color: #ffe0b3;
+    color: #333;
+    font-weight: 600;
+}
+
+.historico-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Gráfico */
+canvas#graficoDistribuicao {
+    display: block;
+    margin: 30px auto 0;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/* --- NOVO --- */
+/* Formulário de Filtro */
+.filtro-form {
+    margin-bottom: 30px;
+}
+
+/* Atualizar o layout dos filtros */
+.filtro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Isso já vai ajustar a largura para caber em qualquer tela */
+    gap: 30px; /* Aumenta ainda mais o espaço entre os filtros */
+    margin-bottom: 15px;
+}
+
+/* Filtros individuais */
+.filtro-item {
+    margin-bottom: 25px; /* Aumenta o espaço abaixo de cada filtro */
+}
+
+.filtro-item label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.filtro-item input,
+.filtro-item select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #fafafa;
+    transition: border-color 0.3s;
+}
+
+.filtro-item input:focus,
+.filtro-item select:focus {
+    border-color: #ffb733;
+    outline: none;
+    background-color: #fff;
+}
+
+.filtro-item input:focus,
+.filtro-item select:focus {
+    border-color: #ffb733;
+    outline: none;
+    background-color: #fff;
+}
+
+
+/* Botão de aplicar filtros */
+.botao-filtro {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 25px;
+    background-color: #ffb733;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao-filtro:hover {
+    background-color: #ffb733;
+}
