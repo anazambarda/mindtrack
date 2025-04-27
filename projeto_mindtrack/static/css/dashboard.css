@@ -123,7 +123,6 @@ canvas#graficoDistribuicao {
     max-height: 300px;
 }
 
-/* --- NOVO --- */
 /* Formulário de Filtro */
 .filtro-form {
     margin-bottom: 30px;
@@ -132,14 +131,14 @@ canvas#graficoDistribuicao {
 /* Atualizar o layout dos filtros */
 .filtro-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Isso já vai ajustar a largura para caber em qualquer tela */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
     gap: 30px; /* Aumenta ainda mais o espaço entre os filtros */
     margin-bottom: 15px;
 }
 
 /* Filtros individuais */
 .filtro-item {
-    margin-bottom: 25px; /* Aumenta o espaço abaixo de cada filtro */
+    margin-bottom: 25px;
 }
 
 .filtro-item label {

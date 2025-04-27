@@ -60,7 +60,7 @@
     display: flex;
   justify-content: center;
   align-items: center;
-  height: 85vh; /* Centraliza verticalmente */
+  height: 85vh; 
   background-color: #fca311;
   padding: 20px;
   gap: 60px;
@@ -73,8 +73,8 @@
     background-color: white;
   border-radius: 10px;
   padding: 30px;
-  width: 320px; /* Mesma largura */
-  height: 130px; /* Altura menor conforme referência */
+  width: 320px; 
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

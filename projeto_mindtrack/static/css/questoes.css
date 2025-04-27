@@ -23,13 +23,13 @@ body {
   }
 
   nav {
-    position: fixed; /* fixo na tela */
-    top: 1.5rem; /* ajustar conforme seu header */
+    position: fixed; 
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 3rem; /* espaço entre os links */
-    z-index: 1000; /* fica acima de tudo */
+    gap: 3rem; 
+    z-index: 1000; 
   }
   
   nav a {
