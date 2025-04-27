@@ -113,8 +113,8 @@ def dashboard(request):
     # 🧹 Pegando filtros do POST
     data_inicio = request.POST.get('data_inicio')
     data_fim = request.POST.get('data_fim')
-    idade_min = request.POST.get('idade_min')
-    idade_max = request.POST.get('idade_max')
+    idade_min_filtro = request.POST.get('idade_min')
+    idade_max_filtro = request.POST.get('idade_max')
     sexo = request.POST.get('sexo')
 
     historico_resultados = Resultado.objects.filter(usuario=usuario).order_by('-formulario__data_resposta')
@@ -125,13 +125,13 @@ def dashboard(request):
     if data_fim:
         historico_resultados = historico_resultados.filter(formulario__data_resposta__lte=data_fim)
 
-    # 🎯 Aplicar filtros de idade e sexo no usuário
+    # 🎯 Aplicar filtros de idade e sexo no conjunto de usuários
     usuarios_filtrados = Usuario.objects.all()
 
-    if idade_min:
-        usuarios_filtrados = usuarios_filtrados.filter(idade__gte=idade_min)
-    if idade_max:
-        usuarios_filtrados = usuarios_filtrados.filter(idade__lte=idade_max)
+    if idade_min_filtro:
+        usuarios_filtrados = usuarios_filtrados.filter(idade__gte=idade_min_filtro)
+    if idade_max_filtro:
+        usuarios_filtrados = usuarios_filtrados.filter(idade__lte=idade_max_filtro)
     if sexo:
         usuarios_filtrados = usuarios_filtrados.filter(sexo=sexo)
 
@@ -155,6 +155,15 @@ def dashboard(request):
     else:
         media_pontuacao_geral = 0
         percentual_transtorno = 0
+
+    # 🎯 Calcular faixa etária real
+    idades = usuarios_filtrados.values_list('idade', flat=True)
+
+    if idades:
+        idade_min_real = min(idades)
+        idade_max_real = max(idades)
+    else:
+        idade_min_real = idade_max_real = None
 
     # 🧮 Métricas individuais (usuário específico)
     total_pontuacao_usuario = historico_resultados.aggregate(total=Sum('pontuacao'))['total'] or 0
@@ -180,16 +189,16 @@ def dashboard(request):
         'media_pontuacao_geral': round(media_pontuacao_geral, 2),
         'percentual_transtorno': round(percentual_transtorno, 2),
         'total_usuarios': total_usuarios,
-        'idade_min': idade_min,
-        'idade_max': idade_max,
+        'idade_min': idade_min_real,
+        'idade_max': idade_max_real,
         'respostas_sem_transtorno': respostas_sem_transtorno,
         'respostas_com_transtorno': respostas_com_transtorno,
         'interpretacao_usuario': interpretacao_usuario,
         'filtros': {
             'data_inicio': data_inicio,
             'data_fim': data_fim,
-            'idade_min': idade_min,
-            'idade_max': idade_max,
+            'idade_min': idade_min_filtro,
+            'idade_max': idade_max_filtro,
             'sexo': sexo,
         },
     }

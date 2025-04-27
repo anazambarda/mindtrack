@@ -1,152 +1,153 @@
-{% load static %}
+    {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
 
-<!-- HEADER -->
-<header>
-    <div class="logo">
-        Mind<span>Track</span>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            Mind<span>Track</span>
+        </div>
+        <nav>
+            <a href="{% url 'perguntas' %}">Página Inicial</a>
+            <a href="{% url 'questoes' %}">Questionário</a>
+
+        </nav>
+        <div class="icon">
+            <i class="fas fa-user-circle"></i> <!-- Ícone de usuário -->
+        </div>
+    </header>
+
+    <!-- CONTEÚDO DO DASHBOARD -->
+    <div class="dashboard-container">
+        <h1>Olá, {{ usuario.nome }}! 👋</h1>
+
+        <section class="metrics-section">
+            <h2>Filtros</h2>
+            <form method="POST" class="filtro-form">
+                {% csrf_token %}
+                <div class="filtro-grid">
+                    <div class="filtro-item">
+                        <label for="data_inicio">Data Início:</label>
+                        <input type="date" name="data_inicio" id="data_inicio" value="{{ filtros.data_inicio }}">
+                    </div>
+                    <div class="filtro-item">
+                        <label for="data_fim">Data Fim:</label>
+                        <input type="date" name="data_fim" id="data_fim" value="{{ filtros.data_fim }}">
+                    </div>
+                    <div class="filtro-item">
+                        <label for="idade_min">Idade Mínima:</label>
+                        <input type="number" name="idade_min" id="idade_min" min="0" value="{{ filtros.idade_min }}">
+                    </div>
+                    <div class="filtro-item">
+                        <label for="idade_max">Idade Máxima:</label>
+                        <input type="number" name="idade_max" id="idade_max" min="0" value="{{ filtros.idade_max }}">
+                    </div>
+                    <div class="filtro-item">
+                        <label for="sexo">Gênero:</label>
+                        <select name="sexo" id="sexo">
+                            <option value="">Todos</option>
+                            <option value="M" {% if filtros.sexo == "Masculino" %}selected{% endif %}>Masculino</option>
+                            <option value="F" {% if filtros.sexo == "Feminino" %}selected{% endif %}>Feminino</option>
+                            <option value="O" {% if filtros.sexo == "Outro" %}selected{% endif %}>Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="botao-filtro">Aplicar Filtros</button>
+            </form>
+        </section>
+
+        <section class="metrics-section">
+            <h2>Métricas Individuais</h2>
+            <ul>
+                <li><strong>Somatório de Pontuação:</strong> {{ total_pontuacao_usuario }}</li>
+                <li><strong>Média de Pontuação:</strong> {{ media_pontuacao_usuario }}</li>
+                <li><strong>Interpretação:</strong> {{ interpretacao_usuario }}</li>
+                <li><strong>Sem transtorno:</strong> {{ respostas_sem_transtorno }} respostas</li>
+                <li><strong>Com transtorno:</strong> {{ respostas_com_transtorno }} respostas</li>
+            </ul>
+        </section>
+
+        <section class="metrics-section">
+            <h2>Métricas Gerais</h2>
+            <ul>
+                <li><strong>Média Geral de Pontuação:</strong> {{ media_pontuacao_geral }}</li>
+                <li><strong>Percentual com Potencial Transtorno:</strong> {{ percentual_transtorno }}%</li>
+                <li><strong>Total de Usuários:</strong> {{ total_usuarios }}</li>
+                <li><strong>Faixa Etária:</strong> {{ idade_min }} - {{ idade_max }} anos</li>
+            </ul>
+        </section>
+
+        <section class="metrics-section">
+            <h2>Histórico de Resultados</h2>
+            <table class="historico-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Pontuação</th>
+                        <th>Estratificação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resultado in historico_resultados %}
+                    <tr>
+                        <td>{{ resultado.formulario.data_resposta }}</td>
+                        <td>{{ resultado.pontuacao }}</td>
+                        <td>{{ resultado.estratificacao }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">Nenhum resultado encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section class="metrics-section">
+            <h2>Distribuição Gráfica</h2>
+            <canvas id="graficoDistribuicao" width="400" height="200"></canvas>
+        </section>
     </div>
-    <nav>
-        <a href="#">Página Inicial</a>
-        <a href="#">Questionário</a>
 
-    </nav>
-    <div class="icon">
-        <i class="fas fa-user"></i> <!-- Ícone de usuário -->
-    </div>
-</header>
-
-<!-- CONTEÚDO DO DASHBOARD -->
-<div class="dashboard-container">
-    <h1>Olá, {{ usuario.nome }}! 👋</h1>
-
-    <section class="metrics-section">
-        <h2>Filtros</h2>
-        <form method="POST" class="filtro-form">
-            {% csrf_token %}
-            <div class="filtro-grid">
-                <div class="filtro-item">
-                    <label for="data_inicio">Data Início:</label>
-                    <input type="date" name="data_inicio" id="data_inicio" value="{{ filtros.data_inicio }}">
-                </div>
-                <div class="filtro-item">
-                    <label for="data_fim">Data Fim:</label>
-                    <input type="date" name="data_fim" id="data_fim" value="{{ filtros.data_fim }}">
-                </div>
-                <div class="filtro-item">
-                    <label for="idade_min">Idade Mínima:</label>
-                    <input type="number" name="idade_min" id="idade_min" min="0" value="{{ filtros.idade_min }}">
-                </div>
-                <div class="filtro-item">
-                    <label for="idade_max">Idade Máxima:</label>
-                    <input type="number" name="idade_max" id="idade_max" min="0" value="{{ filtros.idade_max }}">
-                </div>
-                <div class="filtro-item">
-                    <label for="sexo">Gênero:</label>
-                    <select name="sexo" id="sexo">
-                        <option value="">Todos</option>
-                        <option value="M" {% if filtros.sexo == "Masculino" %}selected{% endif %}>Masculino</option>
-                        <option value="F" {% if filtros.sexo == "Feminino" %}selected{% endif %}>Feminino</option>
-                        <option value="O" {% if filtros.sexo == "Outro" %}selected{% endif %}>Outro</option>
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="botao-filtro">Aplicar Filtros</button>
-        </form>
-    </section>
-
-    <section class="metrics-section">
-        <h2>Métricas Individuais</h2>
-        <ul>
-            <li><strong>Somatório de Pontuação:</strong> {{ total_pontuacao_usuario }}</li>
-            <li><strong>Média de Pontuação:</strong> {{ media_pontuacao_usuario }}</li>
-            <li><strong>Interpretação:</strong> {{ interpretacao_usuario }}</li>
-            <li><strong>Sem transtorno:</strong> {{ respostas_sem_transtorno }} respostas</li>
-            <li><strong>Com transtorno:</strong> {{ respostas_com_transtorno }} respostas</li>
-        </ul>
-    </section>
-
-    <section class="metrics-section">
-        <h2>Métricas Gerais</h2>
-        <ul>
-            <li><strong>Média Geral de Pontuação:</strong> {{ media_pontuacao_geral }}</li>
-            <li><strong>Percentual com Potencial Transtorno:</strong> {{ percentual_transtorno }}%</li>
-            <li><strong>Total de Usuários:</strong> {{ total_usuarios }}</li>
-            <li><strong>Faixa Etária:</strong> {{ idade_min }} - {{ idade_max }} anos</li>
-        </ul>
-    </section>
-
-    <section class="metrics-section">
-        <h2>Histórico de Resultados</h2>
-        <table class="historico-table">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Pontuação</th>
-                    <th>Estratificação</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for resultado in historico_resultados %}
-                <tr>
-                    <td>{{ resultado.formulario.data_resposta }}</td>
-                    <td>{{ resultado.pontuacao }}</td>
-                    <td>{{ resultado.estratificacao }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="3">Nenhum resultado encontrado.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
-
-    <section class="metrics-section">
-        <h2>Distribuição Gráfica</h2>
-        <canvas id="graficoDistribuicao" width="400" height="200"></canvas>
-    </section>
-</div>
-
-<script>
-    const ctx = document.getElementById('graficoDistribuicao').getContext('2d');
-    const graficoDistribuicao = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Sem transtorno', 'Com transtorno'],
-            datasets: [{
-                label: 'Distribuição',
-                data: [{{ respostas_sem_transtorno }}, {{ respostas_com_transtorno }}],
-                backgroundColor: ['#ffcc80', '#ff9800'],
-                borderColor: ['#ffa726', '#fb8c00'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#555',
-                        font: {
-                            size: 14
+    <script>
+        const ctx = document.getElementById('graficoDistribuicao').getContext('2d');
+        const graficoDistribuicao = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Sem transtorno', 'Com transtorno'],
+                datasets: [{
+                    label: 'Distribuição',
+                    data: [{{ respostas_sem_transtorno }}, {{ respostas_com_transtorno }}],
+                    backgroundColor: ['#ffcc80', '#ff9800'],
+                    borderColor: ['#ffa726', '#fb8c00'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#555',
+                            font: {
+                                size: 14
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
-</body>
-</html>
+    </body>
+    </html>

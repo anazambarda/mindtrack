@@ -11,6 +11,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
   .logo {
     font-size: 2rem;
@@ -20,15 +21,28 @@ body {
   .logo span {
     color: #fda8169c;
   }
+
   nav {
+    position: fixed; /* fixo na tela */
+    top: 1.5rem; /* ajustar conforme seu header */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
+    gap: 3rem; /* espaço entre os links */
+    z-index: 1000; /* fica acima de tudo */
   }
+  
   nav a {
     text-decoration: none;
     color: #fda916;
     font-weight: 500;
+    font-size: 1.1rem;
   }
+  
+  nav a:hover {
+    color: #e18712;
+  }
+  
   .icon {
     width: 40px;
     height: 40px;
